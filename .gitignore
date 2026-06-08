@@ -24,3 +24,6 @@ dados/dashboards/
 # IDE
 .idea/
 .vscode/
+
+# Clone acidental / pasta legada
+analitycs/

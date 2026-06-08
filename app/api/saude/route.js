@@ -1,5 +1,6 @@
 import { withApiRateLimit, jsonOk } from "@/lib/api-helpers";
 import getPool from "@/lib/db";
+import { blobConfigurado } from "@/lib/blob-token";
 
 export async function GET(request) {
   return withApiRateLimit(request, async () => {
@@ -12,7 +13,7 @@ export async function GET(request) {
         neon: url.includes("neon.tech"),
         localhost: url.includes("localhost") || url.includes("127.0.0.1"),
         jwt_secret: Boolean(process.env.JWT_SECRET),
-        blob_token: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+        blob_token: blobConfigurado(),
         blob_upload: process.env.NEXT_PUBLIC_BLOB_UPLOAD !== "false",
       },
       banco: "nao_configurado",

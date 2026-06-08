@@ -1,5 +1,9 @@
 import { handleUpload } from "@vercel/blob/client";
 import { autenticarRequisicao, exigirAdmin } from "@/lib/auth";
+import {
+  obterTokenBlobLeituraEscrita,
+  mensagemBlobNaoConfigurado,
+} from "@/lib/blob-token";
 import { withApiRateLimit, jsonErro, jsonOk } from "@/lib/api-helpers";
 
 export async function POST(request) {
@@ -10,10 +14,16 @@ export async function POST(request) {
     const admin = exigirAdmin(auth.usuario);
     if (admin) return jsonErro(admin.erro, admin.status);
 
+    const token = obterTokenBlobLeituraEscrita();
+    if (!token) {
+      return jsonErro(mensagemBlobNaoConfigurado(), 503);
+    }
+
     try {
       const body = await request.json();
 
       const resposta = await handleUpload({
+        token,
         body,
         request,
         onBeforeGenerateToken: async () => ({
@@ -29,7 +39,7 @@ export async function POST(request) {
       console.error("[upload-url]", err?.message || err);
       const msg =
         err?.message?.includes("client token") || err?.message?.includes("BLOB")
-          ? "Vercel Blob não configurado. Conecte Blob em Storage → Settings → Environment Variables."
+          ? mensagemBlobNaoConfigurado()
           : err.message || "Erro ao gerar URL de upload.";
       return jsonErro(msg, 400);
     }

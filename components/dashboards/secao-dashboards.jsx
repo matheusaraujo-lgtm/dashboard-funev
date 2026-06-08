@@ -13,8 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, useToast } from "@/components/layout/toast";
 import { chamadaApi } from "@/lib/api-client";
-import { usaUploadBlobClient } from "@/lib/vercel-env";
-import { LIMITE_HTML_API } from "@/lib/constants";
+import { deveUsarUploadBlobCliente } from "@/lib/upload-dashboard";
 
 function DialogEditarHtml({ dashboard, onFechar, onAtualizar }) {
   const { adicionar: toast } = useToast();
@@ -45,8 +44,7 @@ function DialogEditarHtml({ dashboard, onFechar, onAtualizar }) {
   async function salvar() {
     setSalvando(true);
     try {
-      const usaBlob =
-        usaUploadBlobClient() && new Blob([html]).size > LIMITE_HTML_API;
+      const usaBlob = deveUsarUploadBlobCliente(new Blob([html]).size);
 
       if (usaBlob) {
         const arquivo = new File([html], `${dashboard.nome}.html`, {
@@ -55,6 +53,7 @@ function DialogEditarHtml({ dashboard, onFechar, onAtualizar }) {
         const nomeArquivo = `dashboards/${crypto.randomUUID()}-${dashboard.nome.replace(/[^a-zA-Z0-9._-]/g, "_")}.html`;
         const blob = await upload(nomeArquivo, arquivo, {
           access: "public",
+          contentType: "text/html",
           handleUploadUrl: "/api/dashboards/upload-url",
         });
         await chamadaApi(`/dashboards/${dashboard.id}/html`, {

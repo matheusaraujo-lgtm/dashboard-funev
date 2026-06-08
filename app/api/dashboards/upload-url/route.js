@@ -1,5 +1,6 @@
 import { handleUpload } from "@vercel/blob/client";
 import { autenticarRequisicao, exigirAdmin } from "@/lib/auth";
+import { obterUrlApp } from "@/lib/app-url";
 import {
   obterTokenBlobLeituraEscrita,
   mensagemBlobNaoConfigurado,
@@ -21,6 +22,7 @@ export async function POST(request) {
 
     try {
       const body = await request.json();
+      const urlApp = obterUrlApp();
 
       const resposta = await handleUpload({
         token,
@@ -30,8 +32,8 @@ export async function POST(request) {
           allowedContentTypes: ["text/html"],
           maximumSizeInBytes: 20 * 1024 * 1024,
           tokenPayload: JSON.stringify({ adminId: auth.usuario.id }),
+          ...(urlApp ? { callbackUrl: urlApp } : {}),
         }),
-        onUploadCompleted: async () => {},
       });
 
       return jsonOk(resposta);

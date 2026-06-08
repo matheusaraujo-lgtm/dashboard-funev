@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/layout/toast";
 import { chamadaApi } from "@/lib/api-client";
-import { usaUploadBlobClient } from "@/lib/vercel-env";
+import { deveUsarUploadBlobCliente } from "@/lib/upload-dashboard";
 
 export function SecaoPublicar() {
   const { adicionar: toast } = useToast();
@@ -23,12 +23,11 @@ export function SecaoPublicar() {
     }
     setEnviando(true);
     try {
-      const usaBlob = usaUploadBlobClient();
-
-      if (usaBlob) {
+      if (deveUsarUploadBlobCliente(form.arquivo.size)) {
         const nomeArquivo = `dashboards/${crypto.randomUUID()}-${form.arquivo.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
         const blob = await upload(nomeArquivo, form.arquivo, {
           access: "public",
+          contentType: "text/html",
           handleUploadUrl: "/api/dashboards/upload-url",
         });
         await chamadaApi("/dashboards/upload", {

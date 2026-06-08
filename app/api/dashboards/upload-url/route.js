@@ -26,7 +26,12 @@ export async function POST(request) {
 
       return jsonOk(resposta);
     } catch (err) {
-      return jsonErro(err.message || "Erro ao gerar URL de upload.", 400);
+      console.error("[upload-url]", err?.message || err);
+      const msg =
+        err?.message?.includes("client token") || err?.message?.includes("BLOB")
+          ? "Vercel Blob não configurado. Conecte Blob em Storage → Settings → Environment Variables."
+          : err.message || "Erro ao gerar URL de upload.";
+      return jsonErro(msg, 400);
     }
   });
 }

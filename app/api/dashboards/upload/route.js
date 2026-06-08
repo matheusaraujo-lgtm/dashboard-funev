@@ -99,8 +99,12 @@ export async function POST(request) {
         },
         201
       );
-    } catch {
-      return jsonErro("Erro interno.", 500);
+    } catch (err) {
+      console.error("[upload]", err?.message || err);
+      const msg = err?.message?.includes("BLOB_READ_WRITE_TOKEN")
+        ? err.message
+        : "Erro interno.";
+      return jsonErro(msg, 500);
     }
   });
 }

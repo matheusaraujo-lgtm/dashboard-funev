@@ -32,6 +32,8 @@ Acesse [http://localhost:3000](http://localhost:3000).
 
 ### Variáveis mínimas para dev local
 
+> **Atenção:** estes valores são só para rodar na sua máquina. **Não use na Vercel** — em produção copie a `DATABASE_URL` do Neon (arquivo `.env.local` ou painel Neon).
+
 ```env
 DATABASE_URL=postgresql://sigma:sigma123@localhost:5432/sigma
 JWT_SECRET=dev_secret_trocar_em_producao

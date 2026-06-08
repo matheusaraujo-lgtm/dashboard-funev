@@ -65,7 +65,8 @@ export async function POST(request) {
 
     resposta.cookies.set(opcoesCookieToken(token));
     return resposta;
-  } catch {
+  } catch (err) {
+    console.error("[login]", err?.message || err);
     return jsonErro("Erro interno.", 500);
   }
 }

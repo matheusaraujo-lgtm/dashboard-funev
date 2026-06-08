@@ -101,9 +101,13 @@ export async function POST(request) {
       );
     } catch (err) {
       console.error("[upload]", err?.message || err);
-      const msg = err?.message?.includes("BLOB_READ_WRITE_TOKEN")
-        ? err.message
-        : "Erro interno.";
+      const texto = String(err?.message || "");
+      let msg = "Erro interno.";
+      if (texto.includes("BLOB_READ_WRITE_TOKEN") || texto.includes("BLOB_STORE_ID")) {
+        msg = texto;
+      } else if (texto.includes("Blob") || texto.includes("blob") || texto.includes("Access denied")) {
+        msg = `Falha ao gravar no Vercel Blob: ${texto}`;
+      }
       return jsonErro(msg, 500);
     }
   });

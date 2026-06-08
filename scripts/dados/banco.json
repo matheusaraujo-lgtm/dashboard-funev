@@ -1,0 +1,57 @@
+{
+  "usuarios": [
+    {
+      "id": "admin-inicial",
+      "nome": "Administrador",
+      "email": "admin@sigma.local",
+      "senhaHash": "$2b$10$E8pNTS8KCfNuIkj/olY8sOw7/sSAxpfdC2BIqp.PTpAVeCgQHyL5m",
+      "perfil": "admin",
+      "dashboardsPermitidos": []
+    },
+    {
+      "id": "8f5b2f72-8dcc-4406-9c5e-a8e0f04ca01c",
+      "nome": "Adriano",
+      "email": "adriano.barbosa@funev.org.br",
+      "senhaHash": "$2b$10$qs6FsUug1zglcGvxkkQSOe/cJ42vDyTramLIJYfbQsbzltlIWFi6W",
+      "perfil": "usuario",
+      "dashboardsPermitidos": [
+        "7760aa39-581a-41ee-b919-ea2b6b236f7d"
+      ]
+    },
+    {
+      "id": "62497c90-e9aa-4c1e-a93e-fea539b5a5c0",
+      "nome": "Matheus Araujo",
+      "email": "matheus.araujo@funev.org.br",
+      "senhaHash": "$2b$10$jEAwwqKqYT31wbYxOEfqNO5gjP9mYIXUIOUKqgsZUuYIq9YxNfNhK",
+      "perfil": "usuario",
+      "dashboardsPermitidos": [
+        "7760aa39-581a-41ee-b919-ea2b6b236f7d",
+        "765bbca0-2bc1-4fe2-9142-4510c4bbdc0e",
+        "52863d41-4180-4b61-9eef-2ebce90453d6"
+      ]
+    }
+  ],
+  "dashboards": [
+    {
+      "id": "7760aa39-581a-41ee-b919-ea2b6b236f7d",
+      "nome": "Custeio consolidado - FUNEV",
+      "descricao": "",
+      "arquivo": "e3c0075d-dad3-4661-b16a-610e2b471485-dashboard_custeio_html.html",
+      "criadoEm": "2026-04-29T22:36:23.476Z"
+    },
+    {
+      "id": "765bbca0-2bc1-4fe2-9142-4510c4bbdc0e",
+      "nome": "Desempenho operacional - Funev",
+      "descricao": "",
+      "arquivo": "3bcb8c73-c11f-4833-9c0d-f5a4e2e86449-dashboard-funev-standalone.html",
+      "criadoEm": "2026-04-29T23:01:06.279Z"
+    },
+    {
+      "id": "52863d41-4180-4b61-9eef-2ebce90453d6",
+      "nome": "Gestão de Metas - FUNEV",
+      "descricao": "",
+      "arquivo": "19b80e48-f5e9-4f29-9449-a361446d5594-preview (1).html",
+      "criadoEm": "2026-05-04T21:59:17.936Z"
+    }
+  ]
+}

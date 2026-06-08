@@ -44,7 +44,11 @@ export async function GET(request, { params }) {
 
       const existe = await htmlExiste(dashboard.arquivo);
       if (!existe) {
-        return jsonErro("Arquivo HTML não encontrado.", 404);
+        const msg =
+          dashboard.arquivo && !dashboard.arquivo.startsWith("http")
+            ? "Arquivo HTML não encontrado. Execute npm run blob:migrar ou publique novamente."
+            : "Arquivo HTML não encontrado.";
+        return jsonErro(msg, 404);
       }
 
       const html = await lerHtml(dashboard.arquivo);

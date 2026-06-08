@@ -18,7 +18,7 @@ async function migrarHtmls() {
 
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : undefined,
+    ssl: { rejectUnauthorized: false },
   });
 
   const { rows: dashboards } = await pool.query("SELECT id, arquivo FROM dashboards");

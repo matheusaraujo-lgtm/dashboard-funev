@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/layout/toast";
 import { chamadaApi } from "@/lib/api-client";
 import { deveUsarUploadBlobCliente } from "@/lib/upload-dashboard";
+import { obterAcessoBlob } from "@/lib/blob-access";
 
 export function SecaoPublicar() {
   const { adicionar: toast } = useToast();
@@ -26,7 +27,7 @@ export function SecaoPublicar() {
       if (deveUsarUploadBlobCliente(form.arquivo.size)) {
         const nomeArquivo = `dashboards/${crypto.randomUUID()}-${form.arquivo.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
         const blob = await upload(nomeArquivo, form.arquivo, {
-          access: "public",
+          access: obterAcessoBlob(),
           contentType: "text/html",
           handleUploadUrl: "/api/dashboards/upload-url",
         });

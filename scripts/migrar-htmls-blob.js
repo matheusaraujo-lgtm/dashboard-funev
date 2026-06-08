@@ -41,7 +41,7 @@ async function migrarHtmls() {
     const nomeBlob = `dashboards/${dash.arquivo}`;
 
     const blob = await put(nomeBlob, conteudo, {
-      access: "public",
+      access: process.env.BLOB_DEFAULT_ACCESS === "public" ? "public" : "private",
       contentType: "text/html",
       addRandomSuffix: false,
     });

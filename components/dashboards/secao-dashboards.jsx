@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, useToast } from "@/components/layout/toast";
 import { chamadaApi } from "@/lib/api-client";
 import { deveUsarUploadBlobCliente } from "@/lib/upload-dashboard";
+import { obterAcessoBlob } from "@/lib/blob-access";
 
 function DialogEditarHtml({ dashboard, onFechar, onAtualizar }) {
   const { adicionar: toast } = useToast();
@@ -52,7 +53,7 @@ function DialogEditarHtml({ dashboard, onFechar, onAtualizar }) {
         });
         const nomeArquivo = `dashboards/${crypto.randomUUID()}-${dashboard.nome.replace(/[^a-zA-Z0-9._-]/g, "_")}.html`;
         const blob = await upload(nomeArquivo, arquivo, {
-          access: "public",
+          access: obterAcessoBlob(),
           contentType: "text/html",
           handleUploadUrl: "/api/dashboards/upload-url",
         });

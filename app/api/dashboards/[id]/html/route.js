@@ -31,6 +31,10 @@ export async function GET(request, { params }) {
       }
 
       const html = await lerHtml(dashboard.arquivo);
+      if (!html) {
+        return jsonErro("Não foi possível ler o arquivo HTML do storage.", 404);
+      }
+
       return jsonOk({ id: dashboard.id, nome: dashboard.nome, html });
     } catch {
       return jsonErro("Erro interno.", 500);
